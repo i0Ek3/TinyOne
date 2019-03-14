@@ -14,7 +14,30 @@ A simple FTP server implement by C.
 
 ## Architect
 
-![]()
+```Shell
+.
+├── 1.txt
+├── README.md
+├── base
+│   ├── to_base.c
+│   └── to_base.h
+├── bin
+│   ├── toc
+│   └── tos
+├── client
+│   ├── makefile
+│   ├── to_client.c
+│   └── to_client.h
+├── pic
+│   ├── snapshot.png
+│   └── structure.png
+└── server
+    ├── auth.txt
+    ├── makefile
+    ├── tmp.txt
+    ├── to_server.c
+    └── to_server.h
+```
 
 ## How-To
 
@@ -44,14 +67,14 @@ quit
 
 ## Snapshot
 
-![]()
+![](https://github.com/i0Ek3/TinyOne/blob/master/pic/snapshot.png)
 
 ## To-Do
 
-- [] Download big file
-- [] Upload file
-- [] More command support
-- [] Implement commands to replace system call
+- [x] Download big file
+- [x] Upload file
+- [x] More command support
+- [x] Implement commands to replace system call
 
 ## Reference
 
