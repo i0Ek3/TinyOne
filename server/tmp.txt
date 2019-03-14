@@ -1,0 +1,8 @@
+total 112
+-rw-r--r--  1 m4ch0  admin     19  3 14 16:15 auth.txt
+-rw-r--r--  1 m4ch0  admin    271  3 14 16:07 makefile
+-rw-r--r--  1 m4ch0  admin      0  3 14 16:28 tmp.txt
+-rw-r--r--  1 m4ch0  admin   6124  3 14 15:59 to_server.c
+-rw-r--r--  1 m4ch0  admin    435  3 14 15:59 to_server.h
+-rw-r--r--  1 m4ch0  admin  15284  3 14 16:23 to_server.o
+-rwxr-xr-x  1 m4ch0  admin  16868  3 14 16:23 tos
