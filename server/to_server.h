@@ -5,6 +5,7 @@
 
 void to_server_retrive(int sock_control, int sock_data, char* filename);
 int to_server_list(int sock_data, int sock_control);
+void to_server_push(int sock_data, char* filename);
 int to_server_conn(int sock_control);
 int to_server_check(char* user, char* passwd);
 int to_server_login(int sock_control);

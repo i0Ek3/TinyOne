@@ -130,10 +130,12 @@ int to_client_read_cmd(char* buf, int size, struct command* cmd) {
         strncpy(cmd->arg, arg, strlen(arg));
     }
 
-    if (strcmp(buf, "list") == 0) {
+    if (strcmp(buf, "ls") == 0) {
         strcpy(cmd->code, "LIST");
     } else if (strcmp(buf, "get") == 0) {
         strcpy(cmd->code, "RETR");
+    } else if (strcmp(buf, "put") == 0){
+        strcpy(cmd->code, "PUSH");
     } else if (strcmp(buf, "quit") == 0) {
         strcpy(cmd->code, "QUIT");
     } else {
@@ -162,6 +164,24 @@ int to_client_get(int sock_data, int sock_control, char* arg) {
         perror("Error!\n");
     }
     fclose(fd);
+    return 0;
+}
+
+int to_client_put(int sock_data, char* filename) {
+    int fd = open(filename, O_RDONLY);
+    if (fd < 0) {
+        return -1;
+    }
+    struct stat stat_buf;
+    if (stat(filename, &stat_buf) < 0) {
+        return -1;
+    }
+
+    // 6 parametes for macOS, 4 parameters for linux
+    // sendfile(int, int, off_t, off_t *, struct sf_hdtr *, int);
+    // sendfile(sock_data, fd, NULL, stat_buf.st_size); // for Linux
+    sendfile(sock_data, fd, NULL, &stat_buf.st_size, NULL, 0); // for macOS
+    close(fd);
     return 0;
 }
 

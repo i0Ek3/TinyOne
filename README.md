@@ -5,6 +5,8 @@ A simple FTP server implement by C.
 ## Core
 
 - FTP protocol
+    - PORT: client -> PORT -> server
+    - PASV: client -> PASV -> server
 - Linux Socket Programming
     - use socket() to create a Socket
     - use connect() to connect server
@@ -16,7 +18,6 @@ A simple FTP server implement by C.
 
 ```Shell
 .
-├── 1.txt
 ├── README.md
 ├── base
 │   ├── to_base.c
@@ -76,7 +77,5 @@ quit
 - [x] More command support
 - [x] Implement commands to replace system call
 
-## Reference
 
-- [使用 Socket 通信实现 FTP 客户端程序](https://www.ibm.com/developerworks/cn/linux/l-cn-socketftp/)
 

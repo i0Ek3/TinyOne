@@ -4,7 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
+//#include <sys/sendfile.h>
 #include <sys/socket.h>
+#include <sys/uio.h> // for macOS
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <arpa/inet.h>
 #include <netdb.h>

@@ -92,6 +92,48 @@ int to_server_list(int sock_data, int sock_control) {
     return 0;
 }
 
+void to_server_push(int sock_data, char* filename) {
+    int ack;
+    int sock_control = 0;
+    char buf[MAXSIZE];
+
+    if (recv(sock_control, &ack, sizeof(ack), 0) < 0) {
+        send_response(sock_control, 502);
+        return;
+    }
+
+    int status = ntohl(ack);
+    if (533 == status) {
+        send_response(sock_control, 533);
+        return;
+    }
+
+    //string name = "ftp/";
+    //name += filename;
+    sprintf(buf, "%s%s", "ftp/", filename);
+    int fd = open(buf, O_CREAT|O_WRONLY, 0644);
+    if (fd < 0) {
+        send_response(sock_control, 502);
+        return;
+    }
+
+    while(1) {
+        char data[MAXSIZE];
+        memset(data, 0, sizeof(data));
+        ssize_t s = recv(sock_data, data, sizeof(data), 0);
+        if (s <= 0) {
+            if (s < 0) {
+                send_response(sock_control, 502);
+            } else {
+                send_response(sock_control, 226);
+            }
+            break;
+        }
+        write(fd, data, s);
+    }
+    close(fd);
+}
+
 int to_server_conn(int sock_control) {
     char buf[MAXSIZE];
     int wait, sock_data;
@@ -246,6 +288,8 @@ void to_server_process(int sock_control) {
             if (strcmp(cmd, "LIST") == 0) {
                 to_server_list(sock_data, sock_control);
             } else if (strcmp(cmd, "RETR") == 0) {
+                to_server_retrive(sock_control, sock_data, arg);
+            } else if (strcmp(cmd, "PUSH") == 0) {
                 to_server_retrive(sock_control, sock_data, arg);
             }
             close(sock_data);
