@@ -130,13 +130,13 @@ int to_client_read_cmd(char* buf, int size, struct command* cmd) {
         strncpy(cmd->arg, arg, strlen(arg));
     }
 
-    if (strcmp(buf, "ls") == 0) {
+    if (strcmp(buf, "list") == 0 || strcmp(buf, "ls") == 0) {
         strcpy(cmd->code, "LIST");
-    } else if (strcmp(buf, "get") == 0) {
+    } else if (strcmp(buf, "get") == 0 || strcmp(buf, "download") == 0) {
         strcpy(cmd->code, "RETR");
-    } else if (strcmp(buf, "put") == 0){
+    } else if (strcmp(buf, "put") == 0 || strcmp(buf, "upload") == 0){
         strcpy(cmd->code, "PUSH");
-    } else if (strcmp(buf, "quit") == 0) {
+    } else if (strcmp(buf, "quit") == 0 || strcmp(buf, "q") == 0) {
         strcpy(cmd->code, "QUIT");
     } else {
         return -1;
@@ -161,7 +161,7 @@ int to_client_get(int sock_data, int sock_control, char* arg) {
         fwrite(data, 1, size, fd);
     }
     if (size < 0) {
-        perror("Error!\n");
+        perror("Download error!\n");
     }
     fclose(fd);
     return 0;
@@ -180,7 +180,7 @@ int to_client_put(int sock_data, char* filename) {
     // 6 parametes for macOS, 4 parameters for linux
     // sendfile(int, int, off_t, off_t *, struct sf_hdtr *, int);
     // sendfile(sock_data, fd, NULL, stat_buf.st_size); // for Linux
-    sendfile(sock_data, fd, NULL, &stat_buf.st_size, NULL, 0); // for macOS
+    sendfile(sock_data, fd, NULL, stat_buf.st_size, NULL, 0); // for macOS
     close(fd);
     return 0;
 }

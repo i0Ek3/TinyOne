@@ -71,21 +71,31 @@ or run toc and tos directly under /bin.
 username: admin   username: admin
 password: admin   password: 
 
-//command
-list
-get
-quit
+//commands
+list or ls
+get or download
+put or upload
+quit or q
 ```
 
 ## Snapshot
 
 ![](https://github.com/i0Ek3/TinyOne/blob/master/pic/snapshot.png)
 
+## Issue
+
+- Execute tos and toc under /bin will appear "No such file or directory" error, cause of server cannot locate auth.txt. 
+
+![](https://github.com/i0Ek3/TinyOne/blob/master/pic/404.png)
+
+
+
+
 ## To-Do
 
 - [x] More commands support
 - [x] Breakpoint resume
-- [x] Implement commands to replace system call
+- [x] Commands complementation
 
 ## References
 

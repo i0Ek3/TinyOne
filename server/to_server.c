@@ -95,7 +95,7 @@ int to_server_list(int sock_data, int sock_control) {
 void to_server_push(int sock_data, char* filename) {
     int ack;
     int sock_control = 0;
-    char buf[MAXSIZE];
+    //char buf[MAXSIZE];
 
     if (recv(sock_control, &ack, sizeof(ack), 0) < 0) {
         send_response(sock_control, 502);
@@ -108,10 +108,11 @@ void to_server_push(int sock_data, char* filename) {
         return;
     }
 
-    //string name = "ftp/";
-    //name += filename;
-    sprintf(buf, "%s%s", "ftp/", filename);
-    int fd = open(buf, O_CREAT|O_WRONLY, 0644);
+    char name[20];
+    memset(name, 0, sizeof(name));
+    strcpy(name, "ftp://");
+    strcat(name, filename);
+    int fd = open(name, O_CREAT|O_WRONLY, 0644);
     if (fd < 0) {
         send_response(sock_control, 502);
         return;
@@ -123,9 +124,9 @@ void to_server_push(int sock_data, char* filename) {
         ssize_t s = recv(sock_data, data, sizeof(data), 0);
         if (s <= 0) {
             if (s < 0) {
-                send_response(sock_control, 502);
+                send_response(sock_control, 502); // command failed
             } else {
-                send_response(sock_control, 226);
+                send_response(sock_control, 226); // command successful
             }
             break;
         }
@@ -250,7 +251,7 @@ int to_server_recv_cmd(int sock_control, char* cmd, char* arg) {
     strcpy(arg, tmp);
     if (strcmp(cmd, "QUIT") == 0) {
         retcode = 221;
-    } else if (strcmp(cmd, "USER") == 0 || (strcmp(cmd, "PASS")) == 0 || (strcmp(cmd, "LIST")) == 0 || (strcmp(cmd, "RETR")) == 0) {
+    } else if (strcmp(cmd, "USER") == 0 || (strcmp(cmd, "PASS")) == 0 || (strcmp(cmd, "LIST")) == 0 || (strcmp(cmd, "RETR")) == 0 || (strcmp(cmd, "PUSH")) == 0) {
         retcode = 200;
     } else {
         retcode = 502;
