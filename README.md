@@ -5,14 +5,26 @@ A simple FTP server implement by C.
 ## Core
 
 - FTP protocol
-    - PORT: client -> PORT -> server
-    - PASV: client -> PASV -> server
-- Linux Socket Programming
-    - use socket() to create a Socket
-    - use connect() to connect server
-    - use write() and read() to communicate with each other
-    - use close() to close Socket
-- Linux System Programming
+    - Mode:
+        - PORT: client -> PORT -> server, port > 1024
+        - PASV: client -> PASV -> server, port < 1024
+    - Commands:
+        - USER, PASS, SIZE, CWD, PASV, PORT, RETR, STOR, REST, QUIT
+    - Response Code
+    - Socket Programming
+        - Socket Client
+            - use socket() to create a Socket
+            - use connect() to connect server
+            - use write() and read() to communicate with each other
+            - use close() to close Socket
+        - Socket Server
+            - use socket() to create a Socket
+            - use bind() to bind Socket
+            - use listen() to listen Socket
+            - use accept() to recieve request
+            - use write() and read() to communicate with each other
+            - use close() to close Socket
+    - EOL
 
 ## Architect
 
@@ -55,10 +67,9 @@ $ ./toc ip port
 
 or run toc and tos directly under /bin.
 
-
 // login
-username: admin
-password: admin
+username: admin   username: admin
+password: admin   password: 
 
 //command
 list
@@ -72,10 +83,12 @@ quit
 
 ## To-Do
 
-- [x] Download big file
-- [x] Upload file
-- [x] More command support
+- [x] More commands support
+- [x] Breakpoint resume
 - [x] Implement commands to replace system call
 
+## References
 
+- [FILE TRANSFER PROTOCOL](https://www.w3.org/Protocols/rfc959/)
+- [使用 Socket 通信实现 FTP 客户端程序](https://www.ibm.com/developerworks/cn/linux/l-cn-socketftp/)
 
