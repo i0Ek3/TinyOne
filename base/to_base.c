@@ -1,6 +1,6 @@
 #include "to_base.h"
 
-int socket_create(int port) {
+int socket_create(int port) { // 创建监听套接字
     int sockfd;
     int flag = 1;
     struct sockaddr_in sock_addr;
@@ -40,11 +40,10 @@ int socket_create(int port) {
     return sockfd;
 }
 
-int socket_accept(int listenfd) {
-    int sockfd;
+int socket_accept(int listenfd) { // 接受连接
     struct sockaddr_in client_addr;
     socklen_t len = sizeof(client_addr);
-    sockfd = accept(listenfd, (struct sockaddr*)&client_addr, &len);
+    int sockfd = accept(listenfd, (struct sockaddr*)&client_addr, &len);
 
     if (sockfd < 0) {
         perror("Failed to accept!");
@@ -54,7 +53,7 @@ int socket_accept(int listenfd) {
     return sockfd;
 }
 
-int socket_connect(int port, char* host) {
+int socket_connect(const char* host, const int port) { // 连接指定主机
     int sockfd;
     struct sockaddr_in server_addr;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -77,20 +76,19 @@ int socket_connect(int port, char* host) {
     return sockfd;
 }
 
-int recv_data(int sockfd, char* buf, int bufsize) {
+int recv_data(int sockfd, char* buf, int bufsize) { // 从文件描述符中读取数据
     size_t size;
     memset(buf, 0, bufsize);
 
     size = recv(sockfd, buf, bufsize, 0);
-
-    if (size < 0) {
+    if (size <= 0) {
         return -1;
     }
 
     return size;
 }
 
-int send_response(int sockfd, int retcode) {
+int send_response(int sockfd, int retcode) { // 发送响应码到文件描述符
     int ret = htonl(retcode);
 
     if (send(sockfd, &ret, sizeof(ret), 0) < 0) {
@@ -101,19 +99,7 @@ int send_response(int sockfd, int retcode) {
     return 0;
 }
 
-void trim_char(char* str, int n) {
-    for (int i = 0; i < n; i++) {
-        if (isspace(str[i])) {
-            str[i] = 0;
-        }
-
-        if (str[i] == '\n') {
-            str[i] = 0;
-        }
-    }
-}
-
-void read_input(char* buf, int size) {
+void read_input(char* buf, int size) { // 从标准输入中读取一行
     char* container = NULL;
     memset(buf, 0, size);
 
@@ -121,6 +107,18 @@ void read_input(char* buf, int size) {
         container = strchr(buf, '\n');
         if (container != 0) {
             *container = '\0';
+        }
+    }
+}
+
+void trim_char(char* str, int n) { // 去除字符串中的空格和换行
+    for (int i = 0; i < n; i++) {
+        if (isspace(str[i])) {
+            str[i] = 0;
+        }
+
+        if (str[i] == '\n') {
+            str[i] = 0;
         }
     }
 }

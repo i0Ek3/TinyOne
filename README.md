@@ -2,29 +2,38 @@
 
 A simple FTP server implement by C.
 
-## Core
+## Basic Introduction
 
-- FTP protocol
-    - Mode:
-        - PORT: client -> PORT -> server, port > 1024
-        - PASV: client -> PASV -> server, port < 1024
-    - Commands:
-        - USER, PASS, SIZE, CWD, PASV, PORT, RETR, STOR, REST, QUIT
-    - Response Code
-    - Socket Programming
-        - Socket Client
-            - use socket() to create a Socket
-            - use connect() to connect server
-            - use write() and read() to communicate with each other
-            - use close() to close Socket
-        - Socket Server
-            - use socket() to create a Socket
-            - use bind() to bind Socket
-            - use listen() to listen Socket
-            - use accept() to recieve request
-            - use write() and read() to communicate with each other
-            - use close() to close Socket
-    - EOL
+- File Transfer Protocol
+- Working in the application layer of the TCP/IP protocol family
+- FTP will establish two connections, separate the command from the data
+- Transfer file model
+    - PORT: client -> PORT -> server, port > 1024
+    - PASV: client -> PASV -> server, port < 1024
+
+## FTP Process
+
+- Launch FTP
+- Establish control connection
+- Establish a data connection and transfer files
+- Close FTP
+
+
+## Socket Programming Process
+
+- Socket Client
+    - use socket() to create a Socket
+    - use connect() to connect server
+    - use write() and read() to communicate with each other
+    - use close() to close Socket
+- Socket Server
+    - use socket() to create a Socket
+    - use bind() to bind Socket
+    - use listen() to listen Socket
+    - use accept() to recieve request
+    - use write() and read() to communicate with each other
+    - use close() to close Socket
+
 
 ## Architect
 
@@ -89,13 +98,11 @@ quit or q
 ![](https://github.com/i0Ek3/TinyOne/blob/master/pic/404.png)
 
 
-
-
 ## To-Do
 
 - [x] More commands support
 - [x] Breakpoint resume
-- [x] Commands complementation
+- [x] Server-side synchronization display
 
 ## References
 

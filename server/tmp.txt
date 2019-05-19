@@ -1,8 +1,8 @@
-total 120
--rw-r--r--  1 m4ch0  admin     19  3 14 16:44 auth.txt
--rw-r--r--  1 m4ch0  admin    271  3 14 16:44 makefile
--rw-r--r--  1 m4ch0  admin      0  3 17 14:00 tmp.txt
--rw-r--r--  1 m4ch0  admin   7302  3 17 13:52 to_server.c
--rw-r--r--  1 m4ch0  admin    487  3 17 13:26 to_server.h
--rw-r--r--  1 m4ch0  admin  16972  3 17 13:52 to_server.o
--rwxr-xr-x  1 m4ch0  admin  17148  3 17 13:52 tos
+total 128
+-rw-r--r--  1 m4ch0  admin     19  3 20 22:20 auth.txt
+-rw-r--r--  1 m4ch0  admin    271  3 20 22:20 makefile
+-rw-r--r--  1 m4ch0  admin      0  5 19 13:44 tmp.txt
+-rw-r--r--  1 m4ch0  admin   8371  5 19 13:36 to_server.c
+-rw-r--r--  1 m4ch0  admin    696  5 19 13:13 to_server.h
+-rw-r--r--  1 m4ch0  admin  17016  5 19 13:36 to_server.o
+-rwxr-xr-x  1 m4ch0  admin  16828  5 19 13:43 tos

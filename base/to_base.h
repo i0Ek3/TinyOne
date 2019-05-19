@@ -30,10 +30,10 @@ struct command {
 
 int socket_create(int port);
 int socket_accept(int listenfd);
-int socket_connect(int port, char* host);
+int socket_connect(const char* host, const int port);
 int recv_data(int sockfd, char* buf, int bufsize);
 int send_response(int sockfd, int retcode);
-void trim_char(char* str, int n);
 void read_input(char* buf, int size);
+void trim_char(char* str, int n);
 
 #endif
